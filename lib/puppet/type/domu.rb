@@ -58,12 +58,6 @@ Puppet::ResourceApi.register_type(
   **Autorequires**:
   * `Package[foo]`
   EOS
-  title_patterns: [
-  {
-    pattern: %r{^(?<name>.*)$},
-                                  desc: 'Where only the package is provided',
-  },
-  ],
   features: [],
   attributes: {
     ensure: {
@@ -72,7 +66,7 @@ Puppet::ResourceApi.register_type(
       default: 'present',
     },
 
-    auto-start: {
+    auto_start: {
       type: 'Boolean',
       desc: 'Whether this apt key should be present or absent on the target system.',
       default: 'true',

@@ -29,6 +29,7 @@
 
 # Prerequisites
 *.d
+!facter.d/
 
 # Object files
 *.o
