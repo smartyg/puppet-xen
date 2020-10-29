@@ -1,4 +1,5 @@
 # xen
+[![Build Status](https://travis-ci.com/smartyg/puppet-xen.svg?branch=first-attempt)](https://travis-ci.com/smartyg/puppet-xen)
 
 Welcome to your new module. A short overview of the generated parts can be found
 in the [PDK documentation][1].
