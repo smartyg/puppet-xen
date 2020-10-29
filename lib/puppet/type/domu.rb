@@ -2,7 +2,7 @@ require 'puppet/resource_api'
 
 Puppet::ResourceApi.register_type(
   name: 'domu',
-  features: [ 'simple_get_filter' ],
+  features: [ 'simple_get_filter', 'supports_noop' ],
   docs: <<-EOS,
   @summary a domu type
   @example
