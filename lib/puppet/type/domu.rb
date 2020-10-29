@@ -5,7 +5,7 @@ require 'puppet/resource_api'
 
 Puppet::ResourceApi.register_type(
   name: 'domu',
-  features: [ 'simple_get_filter', 'supports_noop' ],
+  features: ['simple_get_filter', 'supports_noop'],
   docs: <<-EOS,
   @summary a domu type
   @example
@@ -94,7 +94,6 @@ Puppet::ResourceApi.register_type(
       type: 'Enum[pv, pvh, hvm]',
       desc: 'Specifies the type of domain: pv, pvh, hvm',
       default: 'pv',
-        behaviour: :init_only,
     },
 
     pool: {
