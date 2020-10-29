@@ -1,0 +1,19 @@
+write a puppet Xen/libxl/Xenlight module that should do the following:
+- install xen
+- start virtual machines (if needed)
+- stop virtual machines (if status to stop, or purge)
+- manage vcpu(pools)
+- create config files
+- set settings like save and resume
+
+facter
+- detect if dom0
+- list running machine
+- list availible configs
+- list availible vcpu's
+
+Use PDK (https://puppet.com/docs/puppet/6.17/create_types_and_providers_resource_api.html)
+
+Links:
+https://www.jertype.com/posts/calling-c-shared-library/
+https://puppet.com/docs/puppet/6.17/types_and_providers_method.html

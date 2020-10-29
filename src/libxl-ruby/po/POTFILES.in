@@ -1,0 +1,3 @@
+# List of source files which contain translatable strings.
+src/libxl-ruby/main.c
+src/libxl-ruby/main.h
