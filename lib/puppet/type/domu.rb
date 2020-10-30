@@ -263,7 +263,8 @@ Puppet::ResourceApi.register_type(
     },
 
     passthrough: {
-      type: 'Enum[disabled, enabled, sync_pt, sync_pt, share_pt, default]',
+      type: 'Enum["disabled", "enabled", "sync_pt", "sync_pt", "share_pt",
+      "default"]',
       desc: 'Specify whether IOMMU mappings are enabled for the domain and hence
       whether it will be enabled for passthrough hardware. Valid values for
       this option are: disabled, enabled, sync_pt, sync_pt, share_pt, default.',

@@ -1,8 +1,6 @@
 # kate: replace-tabs on; indent-width 2; tab-width 2; indent-mode ruby;
 # kate: word-wrap-column 80; word-wrap on;
 
-require 'puppet/resource_api'
-
 # Implementation for the domu type using the Resource API.
 class Puppet::Provider::Domu::Domu
   def get(context, _names = nil)
