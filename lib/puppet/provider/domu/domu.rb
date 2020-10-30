@@ -3,8 +3,8 @@
 
 # Implementation for the domu type using the Resource API.
 class Puppet::Provider::Domu::Domu
-  def get(context, _names = nil)
-    context.debug('Returning pre-canned example data')
+  def get(context, names = nil)
+    context.notice("get with #{change.inspect}")
     [
       {
         name: 'foo',
@@ -21,5 +21,17 @@ class Puppet::Provider::Domu::Domu
     changes.each do |name, change|
       context.notice("Updating '#{name}' with #{change.inspect}")
     end
+  end
+
+  def create(context, name, should)
+    context.notice("Creating '#{name}' with #{should.inspect}")
+  end
+
+  def update(context, name, should)
+    context.notice("Updating '#{name}' with #{should.inspect}")
+  end
+
+  def delete(context, name)
+    context.notice("Deleting '#{name}'")
   end
 end
