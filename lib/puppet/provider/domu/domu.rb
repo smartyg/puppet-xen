@@ -4,7 +4,7 @@
 # Implementation for the domu type using the Resource API.
 class Puppet::Provider::Domu::Domu
   def get(context, names = nil)
-    context.notice("get with #{change.inspect}")
+    context.notice("get with #{names.inspect}")
     [
       {
         name: 'foo',
