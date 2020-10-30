@@ -3,8 +3,8 @@
 AUTOMAKE_OPTIONS = subdir-objects
 
 bin_PROGRAMS = xen-facter
-xen_facter_LDADD = @GMODULE_STATIC_LIBS@ @JSON_STATIC_LIBS@
-xen_facter_LDFLAGS = -Wl,-rpath=$(pkglibdir),--enable-new-dtags
+xen_facter_LDADD = @GMODULE_STATIC_LIBS@
+xen_facter_LDFLAGS = -Wl,-rpath=$(pkglibdir),--enable-new-dtags /usr/lib64/libjson-c.a
 xen_facter_CFLAGS = -std=gnu11
 xen_facter_CPPFLAGS = -DLOCALEDIR=\"$(localedir)\" -DPKGLIBDIR=\"$(pkglibdir)\" @GMODULE_STATIC_CFLAGS@ @JSON_STATIC_CFLAGS@ @XENLIGHT_CFLAGS@
 xen_facter_SOURCES = main.c \

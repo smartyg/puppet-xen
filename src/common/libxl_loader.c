@@ -51,7 +51,6 @@ libxl_t *libxl_load()
 	char *module_path, *filename;
 	libxl_t *xl;
 
-	//module_path = (char *)g_module_build_path(NULL, LIBXL_MODULE_NAME);
 	filename = find_library(_LIBXL_NAME, _LIB_PATH);
 
 	module = g_module_open(filename, G_MODULE_BIND_LOCAL);
@@ -383,8 +382,7 @@ int _libxl_load_function(GModule *module, const char *function_name, gpointer *f
 	GError **error;
 	if(!g_module_symbol(module, function_name, func_ptr))
 	{
-		g_set_error(error, 4, 2, "%s", g_module_error());
-		if(!g_module_close(module)) g_warning("%s", g_module_error());
+		g_set_error(error, 4, 2, "Error loading function %s: %s", function_name, g_module_error());
 		func_ptr = NULL;
 		return 0;
 	}

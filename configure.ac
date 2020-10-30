@@ -10,7 +10,7 @@ AH_BOTTOM([#include <features.h>])
 
 AC_CANONICAL_BUILD
 AC_CONFIG_MACRO_DIR([m4])
-AM_INIT_AUTOMAKE([-Wall -Werror silent-rules])
+AM_INIT_AUTOMAKE([1.11 foreign -Wall -Werror silent-rules])
 AM_GNU_GETTEXT_VERSION([0.18.3])
 AM_GNU_GETTEXT([external])
 
