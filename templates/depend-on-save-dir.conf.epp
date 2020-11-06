@@ -1,0 +1,8 @@
+<%- | String $domain_save_path
+| -%>
+[Unit]
+RequiresMountsFor=<%= $domain_save_path %>
+
+[Service]
+TimeoutStartSec=0
+TimeoutStopSec=300

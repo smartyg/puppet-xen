@@ -1,0 +1,25 @@
+<%- | String $domain_save_path,
+	String $domain_autostart_path,
+	Boolean $restart_saved
+| -%>
+XENDOMAINS_SYSRQ=""
+
+XENDOMAINS_USLEEP=100000
+
+XENDOMAINS_CREATE_USLEEP=10000000
+
+XENDOMAINS_MIGRATE=""
+
+XENDOMAINS_SAVE=<%= $domain_save_path %>
+
+XENDOMAINS_SHUTDOWN="--wait"
+
+XENDOMAINS_SHUTDOWN_ALL="--all --wait"
+
+XENDOMAINS_RESTORE=<%= $restart_saved %>
+
+XENDOMAINS_AUTO=<%= $domain_autostart_path %>
+
+XENDOMAINS_AUTO_ONLY=false
+
+XENDOMAINS_STOP_MAXWAIT=300
