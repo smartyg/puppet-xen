@@ -1,7 +1,7 @@
 # kate: replace-tabs on; indent-width 2; tab-width 2; indent-mode cstyle; word-wrap-column 140; word-wrap on;
 
 class xen (
-  Optional[String] $version,
+  Optional[String] $version = undef,
   Boolean $install = true,
   Boolean $managed = true,
   Boolean $purge = true,
@@ -18,9 +18,13 @@ class xen (
 
   if($install)
   {
-    package { $pkgs:
-      before => Service['xendomains.service'],
-      ensure => latest,
+    each($packages) | $pkg | {
+      unless defined(Package[$pkg]) {
+        package{ $pkg:
+          before => Service['xendomains.service'],
+          ensure => latest,
+        }
+      }
     }
   }
 
@@ -32,7 +36,6 @@ class xen (
   }
 
   file { $modprobe_loopback_file:
-    require => File[$systemd_dropin_dir],
     notify  => Reboot['critical-files-updated'],
     ensure  => file,
     owner   => 'root',
@@ -42,7 +45,6 @@ class xen (
   }
 
   file { $modules_load_xen_modules_file:
-    require => File[$systemd_dropin_dir],
     notify  => Reboot['critical-files-updated'],
     ensure  => file,
     owner   => 'root',
@@ -51,8 +53,7 @@ class xen (
     source  => 'puppet:///modules/xen/xen-modules.conf',
   }
 
-  if ($restart_saved)
-  {
+  if $restart_saved {
     file { $xendomain_systemd_dropin_file_save_dir:
       require => File[$xendomain_systemd_dropin_dir],
       before  => Service['xendomains.service'],
