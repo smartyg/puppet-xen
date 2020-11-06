@@ -64,22 +64,19 @@ Puppet::ResourceApi.register_type(
   attributes: {
     ensure: {
       type: 'Enum[present, absent]',
-      desc: 'Whether this apt key should be present or absent on the target
-      system.',
+      desc: 'If this domU is `present` or `absent`.',
       default: 'present',
     },
 
     auto_start: {
       type: 'Boolean',
-      desc: 'Whether this apt key should be present or absent on the target
-      system.',
+      desc: 'Should this domU be started on system boot.',
       default: 'true',
     },
 
     running: {
       type: 'Boolean',
-      desc: 'Whether this apt key should be present or absent on the target
-      system.',
+      desc: 'If this domU should be running.',
       default: 'true',
     },
 
