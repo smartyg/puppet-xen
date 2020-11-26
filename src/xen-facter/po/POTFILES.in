@@ -1,3 +1,0 @@
-# List of source files which contain translatable strings.
-src/xen-facter/main.c
-src/xen-facter/main.h
