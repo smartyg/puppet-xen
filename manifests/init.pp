@@ -36,7 +36,7 @@ class xen (
   }
 
   file { $modprobe_loopback_file:
-    notify  => Reboot['critical-files-updated'],
+    notify  => Service['xendomains.service'],
     ensure  => file,
     owner   => 'root',
     group   => 'root',
@@ -45,7 +45,7 @@ class xen (
   }
 
   file { $modules_load_xen_modules_file:
-    notify  => Reboot['critical-files-updated'],
+    notify  => Service['xendomains.service'],
     ensure  => file,
     owner   => 'root',
     group   => 'root',
