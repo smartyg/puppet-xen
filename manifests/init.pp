@@ -111,9 +111,9 @@ class xen (
 
   anchor {'step-install-ready': }
   anchor {'step-config-ready':
-    require => Anchor['step-install'],
+    require => Anchor['step-install-ready'],
   }
   anchor {'step-start-ready':
-    require => Anchor['step-config'],
+    require => Anchor['step-config-ready'],
   }
 }
