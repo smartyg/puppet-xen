@@ -7,8 +7,6 @@ class xen::paths (
   String $var_lock_dir = "${var_dir}/lock",
   String $sysconfig_dir = "${etc_dir}/sysconfig",
   String $systemd_dir = "${etc_dir}/systemd/system",
-  String $modprobe_dir = "${etc_dir}/modprobe.d",
-  String $modules_load_dir = "${etc_dir}/modules-load.d",
 ) {
   # --- Directories ---
   $xen_config_dir = "${etc_dir}/xen"
@@ -21,8 +19,6 @@ class xen::paths (
   # --- Files ---
   $lock_file = "${var_lock_dir}/xl"
   $xendomain_systemd_dropin_file_save_dir = "${$xendomain_systemd_dropin_dir}/10-depend-on-save-dir.conf"
-  $modprobe_loopback_file = "${modprobe_dir}/98-xen-loopback.conf"
-  $modules_load_xen_modules_file = "${modules_load_dir}/10-xen-modules.conf"
   $sysconfig_xencommons_file = "${sysconfig_dir}/xencommons"
   $sysconfig_xendomains_file = "${sysconfig_dir}/xendomains"
   $xl_config_file = "${xen_config_dir}/xl.conf"

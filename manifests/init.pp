@@ -49,7 +49,6 @@ class xen (
     file { $xendomain_systemd_dropin_file_save_dir:
       require => File[$xendomain_systemd_dropin_dir],
       before  => Anchor['step-config-ready'],
-      before  => Service['xendomains.service'],
       ensure  => file,
       owner   => 'root',
       group   => 'root',
