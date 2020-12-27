@@ -1,0 +1,172 @@
+<%- |
+  String $name,
+  Optional[String] $type = undef,
+  Optional[String] $pool = undef,
+  Optional[String] $vcpus = undef,
+  Optional[String] $maxvcpus = undef,
+  Optional[String] $cpus = undef,
+  Optional[String] $cpus_soft = undef,
+  Optional[String] $cpu_weight = undef,
+  Optional[String] $cap = undef,
+  Optional[String] $memory = undef,
+  Optional[String] $maxmem = undef,
+  Optional[String] $on_poweroff = undef,
+  Optional[String] $on_reboot = undef,
+  Optional[String] $on_watchdog = undef,
+  Optional[String] $on_crash = undef,
+  Optional[String] $on_soft_reset = undef,
+  Optional[String] $kernel = undef,
+  Optional[String] $ramdisk = undef,
+  Optional[String] $cmdline = undef,
+  Optional[String] $root = undef,
+  Optional[String] $extra = undef,
+  Optional[String] $firmware = undef,
+  Optional[String] $pvshim = undef,
+  Optional[String] $pvshim_path = undef,
+  Optional[String] $pvshim_cmdline = undef,
+  Optional[String] $pvshim_extra = undef,
+  Optional[String] $uuid = undef,
+  Optional[String] $passthrough = undef,
+  Optional[String] $disk = undef,
+  Optional[String] $vif = undef,
+  Optional[String] $vtpm = undef,
+  Optional[String] $vfb = undef,
+  Optional[String] $usbctrl = undef,
+  Optional[String] $usbdev = undef,
+  Optional[String] $pci = undef,
+  Optional[String] $pci_permissive = undef,
+  Optional[String] $pci_msitranslate = undef,
+  Optional[String] $pci_seize = undef,
+  Optional[String] $pci_power_mgmt = undef,
+  Optional[String] $gfx_passthru = undef,
+  Optional[String] $vkb = undef,
+  Optional[String] $bootloader = undef,
+  Optional[String] $bootloader_args = undef,
+| -%>
+name = "<%= $name %>"
+<% unless $type =~ Undef { -%>
+type = "<%= $type %>"
+<% } -%>
+<% unless $pool =~ Undef { -%>
+pool = "<%= $pool %>"
+<% } -%>
+<% unless $vcpus =~ Undef { -%>
+vcpus = <%= $vcpus %>
+<% } -%>
+<% unless $maxvcpus =~ Undef { -%>
+maxvcpus = <%= $maxvcpus %>
+<% } -%>
+<% unless $cpus =~ Undef { -%>
+cpus = <%= $cpus %>
+<% } -%>
+<% unless $cpus_soft =~ Undef { -%>
+cpus_soft = <%= $cpus_soft %>
+<% } -%>
+<% unless $cpu_weight =~ Undef { -%>
+cpu_weight = <%= $cpu_weight %>
+<% } -%>
+<% unless $cap =~ Undef { -%>
+cap = <%= $cap %>
+<% } -%>
+<% unless $memory =~ Undef { -%>
+memory = <%= $memory %>
+<% } -%>
+<% unless $maxmem =~ Undef { -%>
+maxmem = <%= $maxmem %>
+<% } -%>
+<% unless $on_poweroff =~ Undef { -%>
+on_poweroff = "<%= $on_poweroff %>"
+<% } -%>
+<% unless $on_reboot =~ Undef { -%>
+on_reboot = "<%= $on_reboot %>"
+<% } -%>
+<% unless $on_watchdog =~ Undef { -%>
+on_watchdog = "<%= $on_watchdog %>"
+<% } -%>
+<% unless $on_crash =~ Undef { -%>
+on_crash = "<%= $on_crash %>"
+<% } -%>
+<% unless $on_soft_reset =~ Undef { -%>
+on_soft_reset = "<%= $on_soft_reset %>"
+<% } -%>
+<% unless $kernel =~ Undef { -%>
+kernel = "<%= $kernel %>"
+<% } -%>
+<% unless $ramdisk =~ Undef { -%>
+ramdisk = "<%= $ramdisk %>"
+<% } -%>
+<% unless $cmdline =~ Undef { -%>
+cmdline = "<%= $cmdline %>"
+<% } -%>
+<% unless $root =~ Undef { -%>
+root = "<%= $root %>"
+<% } -%>
+<% unless $extra =~ Undef { -%>
+extra = "<%= $extra %>"
+<% } -%>
+<% unless $firmware =~ Undef { -%>
+firmware = "<%= $firmware %>"
+<% } -%>
+<% unless $pvshim =~ Undef { -%>
+pvshim = <%= $pvshim %>
+<% } -%>
+<% unless $pvshim_path =~ Undef { -%>
+pvshim_path = <%= $pvshim_path %>
+<% } -%>
+<% unless $pvshim_cmdline =~ Undef { -%>
+pvshim_cmdline = "<%= $pvshim_cmdline %>"
+<% } -%>
+<% unless $pvshim_extra =~ Undef { -%>
+pvshim_extra = "<%= $pvshim_extra %>"
+<% } -%>
+<% unless $uuid =~ Undef { -%>
+uuid = "<%= $uuid %>"
+<% } -%>
+<% unless $passthrough =~ Undef { -%>
+passthrough = <%= $passthrough %>
+<% } -%>
+<% unless $disk =~ Undef { -%>
+disk = <%= $disk %>
+<% } -%>
+<% unless $vif =~ Undef { -%>
+vif = <%= $vif %>
+<% } -%>
+<% unless $vtpm =~ Undef { -%>
+vtpm = <%= $vtpm %>
+<% } -%>
+<% unless $vfb =~ Undef { -%>
+vfb = <%= $vfb %>
+<% } -%>
+<% unless $usbctrl =~ Undef { -%>
+usbctrl = <%= $usbctrl %>
+<% } -%>
+<% unless $usbdev =~ Undef { -%>
+usbdev = <%= $usbdev %>
+<% } -%>
+<% unless $pci =~ Undef { -%>
+pci = <%= $pci %>
+<% } -%>
+<% unless $pci_permissive =~ Undef { -%>
+pci_permissive = <%= $pci_permissive %>
+<% } -%>
+<% unless $pci_msitranslate =~ Undef { -%>
+pci_msitranslate = <%= $pci_msitranslate %>
+<% } -%>
+<% unless $pci_seize =~ Undef { -%>
+pci_seize = <%= $pci_seize %>
+<% } -%>
+<% unless $pci_power_mgmt =~ Undef { -%>
+pci_power_mgmt = <%= $pci_power_mgmt %>
+<% } -%>
+<% unless $gfx_passthru =~ Undef { -%>
+gfx_passthru = <%= $gfx_passthru %>
+<% } -%>
+<% unless $vkb =~ Undef { -%>
+vkb = <%= $vkb %>
+<% } -%>
+<% unless $bootloader =~ Undef { -%>
+bootloader = "<%= $bootloader %>"
+<% } -%>
+<% unless $bootloader_args =~ Undef { -%>
+bootloader_args = "<%= $bootloader_args %>"
+<% } -%>
