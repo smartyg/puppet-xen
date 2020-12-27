@@ -4,7 +4,7 @@
 require 'puppet/resource_api'
 
 Puppet::ResourceApi.register_type(
-  name: 'domu',
+  name: 'xen_domu',
   features: ['simple_get_filter', 'supports_noop'],
   docs: <<-EOS,
   @summary a domu type
@@ -94,25 +94,25 @@ Puppet::ResourceApi.register_type(
     },
 
     pool: {
-      type: 'String',
+      type: 'Optional[String]',
       desc: 'Put the guest\'s vCPUs into the named CPU pool.',
     },
 
     vcpus: {
-      type: 'Integer',
+      type: 'Optional[Integer]',
       desc: 'Start the guest with N vCPUs initially online.',
       behaviour: :init_only,
     },
 
     maxvcpus: {
-      type: 'Integer',
+      type: 'Optional[Integer]',
       desc: 'Allow the guest to bring up a maximum of M vCPUs. When starting
       the guest, if vcpus=N is less than maxvcpus=M then the first N vCPUs will
       be created online and the remainder will be created offline.',
     },
 
     cpus: {
-      type: 'String',
+      type: 'Optional[String]',
       desc: 'List of host CPUs the guest is allowed to use. Default is no
       pinning at all, possible values are: "all", "0-3,5,^1",
       "nodes:0-3,^node:2"',
@@ -120,14 +120,14 @@ Puppet::ResourceApi.register_type(
     },
 
     cpus_soft: {
-      type: 'String',
+      type: 'Optional[String]',
       desc: 'Exactly as cpus=, but specifies soft affinity, rather than pinning
       (hard affinity). When using the credit scheduler, this means what CPUs
       the vCPUs of the domain prefer.',
     },
 
     cpu_weight: {
-      type: 'Integer',
+      type: 'Optional[Integer]',
       desc: 'A domain with a weight of 512 will get twice as much CPU as a
       domain with a weight of 256 on a contended host. Legal weights range from
       1 to 65535 and the default is 256. Honoured by the credit and credit2
@@ -135,7 +135,7 @@ Puppet::ResourceApi.register_type(
     },
 
     cap: {
-      type: 'Integer',
+      type: 'Optional[Integer]',
       desc: 'The cap optionally fixes the maximum amount of CPU a domain will
       be able to consume, even if the host system has idle CPU cycles. The cap
       is expressed as a percentage of one physical CPU: 100 is 1 physical CPU,
@@ -149,41 +149,41 @@ Puppet::ResourceApi.register_type(
     },
 
     maxmem: {
-      type: 'Integer',
+      type: 'Optional[Integer]',
       desc: 'Specifies the maximum amount of memory a guest can ever see. The
       value of maxmem= must be equal to or greater than that of memory=.',
     },
 
     on_poweroff: {
-      type: 'Enum[destroy, restart, rename-restart, preserve, coredump-destroy,
-      coredump-restart, soft-reset]',
+      type: 'Optional[Enum[destroy, restart, rename-restart, preserve,
+      coredump-destroy, coredump-restart, soft-reset]]',
       desc: 'Specifies what should be done with the domain if it shuts itself
       down. The default for on_poweroff is destroy.',
     },
 
     on_reboot: {
-      type: 'Enum[destroy, restart, rename-restart, preserve, coredump-destroy,
-      coredump-restart, soft-reset]',
+      type: 'Optional[Enum[destroy, restart, rename-restart, preserve,
+      coredump-destroy, coredump-restart, soft-reset]]',
       desc: 'Action to take if the domain shuts down with a reason code
       requesting a reboot. Default is restart.',
     },
 
     on_watchdog: {
-      type: 'Enum[destroy, restart, rename-restart, preserve, coredump-destroy,
-      coredump-restart, soft-reset]',
+      type: 'Optional[Enum[destroy, restart, rename-restart, preserve,
+      coredump-destroy, coredump-restart, soft-reset]]',
       desc: 'Action to take if the domain shuts down due to a Xen watchdog
       timeout. Default is destroy.',
     },
 
     on_crash: {
-      type: 'Enum[destroy, restart, rename-restart, preserve, coredump-destroy,
-      coredump-restart, soft-reset]',
+      type: 'Optional[Enum[destroy, restart, rename-restart, preserve,
+      coredump-destroy, coredump-restart, soft-reset]]',
       desc: 'Action to take if the domain crashes. Default is destroy.',
     },
 
     on_soft_reset: {
-      type: 'Enum[destroy, restart, rename-restart, preserve, coredump-destroy,
-      coredump-restart, soft-reset]',
+      type: 'Optional[Enum[destroy, restart, rename-restart, preserve,
+      coredump-destroy, coredump-restart, soft-reset]]',
       desc: 'Action to take if the domain performs a \'soft reset\' (e.g. does
       kexec). Default is soft-reset.',
     },
@@ -199,7 +199,7 @@ Puppet::ResourceApi.register_type(
     },
 
     cmdline: {
-      type: 'String',
+      type: 'Optional[String]',
       desc: 'Append STRING to the kernel command line. (Note: the meaning of
       this is guest specific). It can replace root="STRING" along with
       extra="STRING" and is preferred. When cmdline="STRING" is set,
@@ -207,25 +207,25 @@ Puppet::ResourceApi.register_type(
     },
 
     root: {
-      type: 'String',
+      type: 'Optional[String]',
       desc: 'Append root=STRING to the kernel command line (Note: the meaning
       of this is guest specific).',
     },
 
     extra: {
-      type: 'String',
+      type: 'Optional[String]',
       desc: 'Append STRING to the kernel command line. (Note: the meaning of
       this is guest specific).',
     },
 
     firmware: {
-      type: 'Variant[Enum[pvgrub32, pvgrub64, bios, uefi, seabios, rombios,
-      ovmf], String]',
+      type: 'Optional[Variant[Enum[pvgrub32, pvgrub64, bios, uefi, seabios,
+      rombios, ovmf], String]]',
       desc: 'Select the firmware to use, accepted values depend on domU type.',
     },
 
     pvshim: {
-      type: 'Boolean',
+      type: 'Optional[Boolean]',
       desc: 'Whether to boot this guest as a PV guest within a PVH container.
       Ie, the guest will experience a PV environment, but processor hardware
       extensions are used to separate its address space to mitigate the Meltdown
@@ -233,20 +233,20 @@ Puppet::ResourceApi.register_type(
     },
 
     pvshim_path: {
-      type: 'String',
+      type: 'Optional[String]',
       desc: 'The PV shim is a specially-built firmware-like executable
       constructed from the hypervisor source tree. This option specifies to use
       a non-default shim. Ignored if pvhsim is false.',
     },
 
     pvshim_cmdline: {
-      type: 'String',
+      type: 'Optional[String]',
       desc: 'Command line for the shim. Default is "pv-shim console=xen,pv".
       Ignored if pvhsim is false.',
     },
 
     pvshim_extra: {
-      type: 'String',
+      type: 'Optional[String]',
       desc: 'Extra command line arguments for the shim. If supplied, appended
       to the value for pvshim_cmdline. Default is empty. Ignored if pvhsim is
       false.',
@@ -260,8 +260,8 @@ Puppet::ResourceApi.register_type(
     },
 
     passthrough: {
-      type: 'Enum["disabled", "enabled", "sync_pt", "sync_pt", "share_pt",
-      "default"]',
+      type: 'Optional[Enum["disabled", "enabled", "sync_pt", "sync_pt",
+      "share_pt", "default"]]',
       desc: 'Specify whether IOMMU mappings are enabled for the domain and hence
       whether it will be enabled for passthrough hardware. Valid values for
       this option are: disabled, enabled, sync_pt, sync_pt, share_pt, default.',
@@ -282,61 +282,61 @@ Puppet::ResourceApi.register_type(
     },
 
     vtpm: {
-      type: 'String',
+      type: 'Optional[String]',
       desc: 'Specifies the Virtual Trusted Platform module to be provided to
       the guest. See xen-vtpm(7) for more details.',
     },
 
     vfb: {
-      type: 'String',
+      type: 'Optional[String]',
       desc: 'Specifies the paravirtual framebuffer devices which should be
       supplied to the domain.',
     },
 
     usbctrl: {
-      type: 'String',
+      type: 'Optional[String]',
       desc: 'Specifies the USB controllers created for this guest.',
     },
 
     usbdev: {
-      type: 'String',
+      type: 'Optional[String]',
       desc: 'Specifies the USB devices to be attached to the guest at boot.',
     },
 
     pci: {
-      type: 'String',
+      type: 'Optional[String]',
       desc: 'Specifies the host PCI devices to passthrough to this guest. Each
       PCI_SPEC_STRING has the form of
       [DDDD:]BB:DD.F[@VSLOT],KEY=VALUE,KEY=VALUE,...',
     },
 
     pci_permissive: {
-      type: 'Boolean',
+      type: 'Optional[Boolean]',
       desc: 'Changes the default value of permissive for all PCI devices passed
       through to this VM. See permissive above.',
     },
 
     pci_msitranslate: {
-      type: 'Boolean',
+      type: 'Optional[Boolean]',
       desc: 'Changes the default value of msitranslate for all PCI devices
       passed
       through to this VM. See msitranslate above.',
     },
 
     pci_seize: {
-      type: 'Boolean',
+      type: 'Optional[Boolean]',
       desc: 'Changes the default value of seize for all PCI devices passed
       through to this VM. See seize above.',
     },
 
     pci_power_mgmt: {
-      type: 'Boolean',
+      type: 'Optional[Boolean]',
       desc: '(HVM only) Changes the default value of power_mgmt for all PCI
       devices passed through to this VM. See power_mgmt above.',
     },
 
     gfx_passthru: {
-      type: 'Variant[Boolean, String]',
+      type: 'Optional[Variant[Boolean, String]]',
       desc: 'Enable graphics device PCI passthrough. This option makes an
       assigned PCI graphics card become the primary graphics card in the VM. The
       QEMU emulated graphics adapter is disabled and the VNC console for the VM
@@ -346,19 +346,19 @@ Puppet::ResourceApi.register_type(
     },
 
     vkb: {
-      type: 'String',
+      type: 'Optional[String]',
       desc: 'Specifies the virtual keyboard device to be provided to the guest.',
     },
 
     bootloader: {
-      type: 'String',
+      type: 'Optional[String]',
       desc: 'Run PROGRAM to find the kernel image and ramdisk to use. Normally
       PROGRAM would be pygrub, which is an emulation of grub/grub2/syslinux.
       Either kernel or bootloader must be specified for PV guests.',
     },
 
     bootloader_args: {
-      type: 'String',
+      type: 'Optional[String]',
       desc: 'Append ARGs (presented as an array) to the arguments to the
       bootloader program',
     },

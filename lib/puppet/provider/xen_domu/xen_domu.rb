@@ -5,7 +5,7 @@ require 'puppet/resource_api'
 require 'puppet/resource_api/simple_provider'
 
 # Implementation for the domu type using the Resource API.
-class Puppet::Provider::Domu::Domu < Puppet::ResourceApi::SimpleProvider
+class Puppet::Provider::XenDomu::XenDomu < Puppet::ResourceApi::SimpleProvider
   def get(context, names = nil)
     context.info("get with #{names.inspect}")
     [
