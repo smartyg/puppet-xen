@@ -7,7 +7,7 @@ require 'puppet/resource_api/simple_provider'
 # Implementation for the domu type using the Resource API.
 class Puppet::Provider::Domu::Domu < Puppet::ResourceApi::SimpleProvider
   def get(context, names = nil)
-    context.notice("get with #{names.inspect}")
+    context.info("get with #{names.inspect}")
     [
       {
         name: 'foo',
@@ -22,19 +22,19 @@ class Puppet::Provider::Domu::Domu < Puppet::ResourceApi::SimpleProvider
 
   def set(context, changes)
     changes.each do |name, change|
-      context.notice("Updating '#{name}' with #{change.inspect}")
+      context.info("Updating '#{name}' with #{change.inspect}")
     end
   end
 
   def create(context, name, should)
-    context.notice("Creating '#{name}' with #{should.inspect}")
+    context.info("Creating '#{name}' with #{should.inspect}")
   end
 
   def update(context, name, should)
-    context.notice("Updating '#{name}' with #{should.inspect}")
+    context.info("Updating '#{name}' with #{should.inspect}")
   end
 
   def delete(context, name)
-    context.notice("Deleting '#{name}'")
+    context.info("Deleting '#{name}'")
   end
 end
