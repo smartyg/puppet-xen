@@ -1,6 +1,6 @@
 # kate: replace-tabs on; indent-width 2; tab-width 2; indent-mode cstyle; word-wrap-column 140; word-wrap on;
 
-define xenserver::domu (
+define xen::domu (
   Xen::Type $type = 'pv',
   Integer $autostart_order = 50,
   Enum['present', 'absent'] $state = 'present',
@@ -31,7 +31,7 @@ define xenserver::domu (
   Optional[String] $pvshim_path = undef,
   Optional[String] $pvshim_cmdline = undef,
   Optional[String] $pvshim_extra = undef,
-  Optional[Xen::Uuid] $uuid = undef,
+  Xen::Uuid $uuid,
   Optional[Xen::Passthrough] $passthrough = undef,
   Optional[Array[String]] $disk = undef,
   Optional[Array[String]] $vif = undef,
@@ -58,17 +58,33 @@ define xenserver::domu (
     $domu_config_file = "${xen_domu_config_dir}/${name}"
     $domu_autostart_file = "${xen_domu_autostart_dir}/${autostart_order}-${name}"
 
-    $disk_real_tmp = join($disk, '", "')
-    $disk_real = "\"${disk_real_tmp}\""
+    if $disk {
+      $disk_real_tmp = join($disk, '", "')
+      $disk_real = "\"${disk_real_tmp}\""
+    } else {
+      $disk_real = undef
+    }
 
-    $vif_real_tmp = join($vif, '", "')
-    $vif_real = "\"${vif_real_tmp}\""
+    if $vif {
+      $vif_real_tmp = join($vif, '", "')
+      $vif_real = "\"${vif_real_tmp}\""
+    } else {
+      $vif_real = undef
+    }
 
-    $vfb_real_tmp = join($vfb, '", "')
-    $vfb_real = "\"${vfb_real_tmp}\""
+    if $vfb {
+      $vfb_real_tmp = join($vfb, '", "')
+      $vfb_real = "\"${vfb_real_tmp}\""
+    } else {
+      $vfb_real = undef
+    }
 
-    $vtpm_real_tmp = join($vtpm, '", "')
-    $vtpm_real = "\"${vtpm_real_tmp}\""
+    if $vtpm {
+      $vtpm_real_tmp = join($vtpm, '", "')
+      $vtpm_real = "\"${vtpm_real_tmp}\""
+    } else {
+      $vtpm_real = undef
+    }
 
     file { $domu_config_file:
       ensure => file,
@@ -78,7 +94,7 @@ define xenserver::domu (
       content => epp('xen/domu_config.epp',
         {
           'name'             => $name,
-          'type'             => $type_real,
+          'type'             => $type,
           'pool'             => $pool,
           'vcpus'            => $vcpus,
           'maxvcpus'         => $maxvcpus,
@@ -93,8 +109,8 @@ define xenserver::domu (
           'on_watchdog'      => $on_watchdog,
           'on_crash'         => $on_crash,
           'on_soft_reset'    => $on_soft_reset,
-          'kernel'           => $kernel_real,
-          'ramdisk'          => $ramdisk_real,
+          'kernel'           => $kernel,
+          'ramdisk'          => $ramdisk,
           'cmdline'          => $cmdline,
           'root'             => $root,
           'extra'            => $extra,
@@ -137,9 +153,11 @@ define xenserver::domu (
 
     if (($name in $facts['xen']['domu_by_name'] and ($change != 'no' or $state == 'absent')) or
       (! $name in $facts['xen']['domu_by_name'] and $state == 'running')) {
+      notice('Try to update running domU')
       xen_domu { $name:
-        type             => $type_real,
-        change           => $change,
+        ensure           => $state,
+        type             => $type,
+#       change           => $change,
         auto_start       => $auto_start,
         running          => $running,
         pool             => $pool,
@@ -156,8 +174,8 @@ define xenserver::domu (
         on_watchdog      => $on_watchdog,
         on_crash         => $on_crash,
         on_soft_reset    => $on_soft_reset,
-        kernel           => $kernel_real,
-        ramdisk          => $ramdisk_real,
+        kernel           => $kernel,
+        ramdisk          => $ramdisk,
         cmdline          => $cmdline,
         root             => $root,
         extra            => $extra,

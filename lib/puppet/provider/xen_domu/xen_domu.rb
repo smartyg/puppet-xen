@@ -6,25 +6,64 @@ require 'puppet/resource_api/simple_provider'
 
 # Implementation for the domu type using the Resource API.
 class Puppet::Provider::XenDomu::XenDomu < Puppet::ResourceApi::SimpleProvider
-  def get(context, names = nil)
-    context.info("get with #{names.inspect}")
+  def get(context, name = nil)
+    context.info("get with #{name.inspect}")
     [
       {
-        name: 'foo',
+        name: name,
         ensure: 'present',
-      },
-      {
-        name: 'bar',
-        ensure: 'present',
+        change: 'restart',
+        type: 'pv',
+        pool: '',
+        vcpus: 5,
+        maxvcpus: 10,
+        cpus: '',
+        cpus_soft: '',
+        cpu_weight: 100,
+        cap: 100,
+        memory: 1024,
+        maxmem: 5120,
+        on_poweroff: 'restart',
+        on_reboot: 'restart',
+        on_watchdog: 'restart',
+        on_crash: 'restart',
+        on_soft_reset: 'restart',
+        kernel: '',
+        ramdisk: '',
+        cmdline: '',
+        root: '',
+        extra: '',
+        firmware: '',
+        pvshim: false,
+        pvshim_path: '',
+        pvshim_cmdline: '',
+        pvshim_extra: '',
+        uuid: '12345678-1234-1234-1234-0123456789ab',
+        passthrough: 'disabled',
+        disk: [''],
+        vif: [''],
+        vtpm: [''],
+        vfb: [''],
+        usbctrl:  '',
+        usbdev: '',
+        pci: '',
+        pci_permissive: false,
+        pci_msitranslate: false,
+        pci_seize: false,
+        pci_power_mgmt: false,
+        gfx_passthru: false,
+        vkb: '',
+        bootloader: '',
+        bootloader_args: '',
       },
     ]
   end
 
-  def set(context, changes)
-    changes.each do |name, change|
-      context.info("Updating '#{name}' with #{change.inspect}")
-    end
-  end
+#  def set(context, changes, _argument)
+#    changes.each do |name, change|
+#      context.info("Updating '#{name}' with #{change.inspect}")
+#    end
+#  end
 
   def create(context, name, should)
     context.info("Creating '#{name}' with #{should.inspect}")

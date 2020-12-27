@@ -62,35 +62,32 @@ Puppet::ResourceApi.register_type(
   * `Package[foo]`
   EOS
   attributes: {
-    ensure: {
-      type: 'Enum[present, absent]',
-      desc: 'If this domU is `present` or `absent`.',
-      default: 'present',
-    },
-
-    auto_start: {
-      type: 'Boolean',
-      desc: 'Should this domU be started on system boot.',
-      default: 'true',
-    },
-
-    running: {
-      type: 'Boolean',
-      desc: 'If this domU should be running.',
-      default: 'true',
-    },
-
-    name: {
+     name: {
       type: 'String',
       desc: 'Specifies the name of the domain. Names of domains existing on a
       single host must be unique.',
       behaviour: :namevar,
     },
 
+    ensure: {
+      type: 'Enum[present, absent]',
+      desc: 'If this domU is `present` or `absent`.',
+      default: 'present',
+    },
+
+    change: {
+      type: 'Enum[online, restart, no]',
+      desc: 'How should a running dom U be changed (if any property has changed)?
+      \'online\' will try to update the running dom U, \'restart\' will stop and start the
+      dom U and \'no\' will not update the dom U at all.',
+      default: 'restart',
+    },
+
     type: {
       type: 'Enum[pv, pvh, hvm]',
       desc: 'Specifies the type of domain: pv, pvh, hvm',
       default: 'pv',
+      behaviour: :init_only,
     },
 
     pool: {
@@ -253,8 +250,7 @@ Puppet::ResourceApi.register_type(
     },
 
     uuid: {
-      type: 'Regexp[/[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-
-      [a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}/]',
+      type: 'Pattern[/[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}/]',
       desc: 'Specifies the UUID of the domain. If not specified, a fresh unique
       UUID will be generated.',
     },
@@ -268,27 +264,27 @@ Puppet::ResourceApi.register_type(
     },
 
     disk: {
-      type: 'String',
+      type: 'Optional[Array[String]]',
       desc: 'Specifies the disks (both emulated disks and Xen virtual block
       devices) which are to be provided to the guest, and what objects on the
       host they should map to. See xl-disk-configuration(5) for more details.',
     },
 
     vif: {
-      type: 'String',
+      type: 'Optional[Array[String]]',
       desc: 'Specifies the network interfaces (both emulated network
       adapters, and Xen virtual interfaces) which are to be provided to the
       guest. See xl-network-configuration(5) for more details.',
     },
 
     vtpm: {
-      type: 'Optional[String]',
+      type: 'Optional[Array[String]]',
       desc: 'Specifies the Virtual Trusted Platform module to be provided to
       the guest. See xen-vtpm(7) for more details.',
     },
 
     vfb: {
-      type: 'Optional[String]',
+      type: 'Optional[Array[String]]',
       desc: 'Specifies the paravirtual framebuffer devices which should be
       supplied to the domain.',
     },
