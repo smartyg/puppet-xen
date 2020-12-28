@@ -59,12 +59,6 @@ class Puppet::Provider::XenDomu::XenDomu < Puppet::ResourceApi::SimpleProvider
     ]
   end
 
-#  def set(context, changes, _argument)
-#    changes.each do |name, change|
-#      context.info("Updating '#{name}' with #{change.inspect}")
-#    end
-#  end
-
   def create(context, name, should)
     context.info("Creating '#{name}' with #{should.inspect}")
   end

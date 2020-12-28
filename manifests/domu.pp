@@ -158,8 +158,6 @@ define xen::domu (
         ensure           => $state,
         type             => $type,
 #       change           => $change,
-        auto_start       => $auto_start,
-        running          => $running,
         pool             => $pool,
         vcpus            => $vcpus,
         maxvcpus         => $maxvcpus,
