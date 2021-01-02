@@ -28,7 +28,7 @@ class xen (
     }
   }
 
-  file { [$xendomain_systemd_dropin_dir, $xen_config_dir, $saved_domain_dir]:
+  file { [$xendomain_systemd_dropin_dir, $xen_config_dir]:
     before => Anchor['step-config-ready'],
     ensure => directory,
     owner  => 'root',
